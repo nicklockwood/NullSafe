@@ -43,6 +43,7 @@ id NullSafeMethodIMP(id self, SEL cmd, ...)
 @implementation NUSNull
 
 + (void)load {
+	[super load];
 	Method resolveInstanceMethod = class_getClassMethod(NSNull.class, @selector(resolveInstanceMethod:));
 	Method newResolveInstanceMethod = class_getClassMethod(self.class, @selector(resolveInstanceMethod:));
 	
