@@ -33,19 +33,20 @@
 #import "NullSafe.h"
 #import <objc/runtime.h>
 
-
-@implementation NSNull (NullSafe_Private)
-
 id NullSafeMethodIMP(id, SEL, ...);
-
-@end
-
-
-@implementation NSNull (NullSafe)
 
 id NullSafeMethodIMP(id self, SEL cmd, ...)
 {
     return nil;
+}
+
+@implementation NUSNull
+
++ (void)load {
+	Method resolveInstanceMethod = class_getClassMethod(NSNull.class, @selector(resolveInstanceMethod:));
+	Method newResolveInstanceMethod = class_getClassMethod(self.class, @selector(resolveInstanceMethod:));
+	
+	method_exchangeImplementations(resolveInstanceMethod, newResolveInstanceMethod);
 }
 
 + (BOOL)resolveInstanceMethod:(SEL)sel
