@@ -20,8 +20,9 @@
 - (void)testFloatValue
 {
     id nullValue = [NSNull null];
+    float x = floorf(123.456);
     float result = [nullValue floatValue];
-    NSAssert(result == 0.0f, @"FloatValue test failed");
+    NSAssert(result == 0.0f, @"FloatValue test failed (%g)", x);
 }
 
 - (void)testClass
