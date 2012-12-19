@@ -32,7 +32,6 @@
 
 #import <Foundation/Foundation.h>
 
-
-@implementation NSNull (NullSafe)
+@interface NUSNull : NSNull
 
 @end

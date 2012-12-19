@@ -30,28 +30,31 @@
 //  3. This notice may not be removed or altered from any source distribution.
 //
 
-#import "NullSafe.m"
+#import "NullSafe.h"
 #import <objc/runtime.h>
 
+id NUSNullSafeMethodIMP(id, SEL, ...);
 
-@implementation NSNull (NullSafe_Private)
-
-id NullSafeMethodIMP(id, SEL, ...);
-
-@end
-
-
-@implementation NSNull (NullSafe)
-
-id NullSafeMethodIMP(id self, SEL cmd, ...)
+id NUSNullSafeMethodIMP(id self, SEL cmd, ...)
 {
     return nil;
 }
 
-+ (BOOL)resolveInstanceMethod:(SEL)sel
+BOOL NUSResolveInstanceMethodOverrideIMP(id self, SEL cmd, SEL sel);
+
+BOOL NUSResolveInstanceMethodOverrideIMP(id self, SEL cmd, SEL sel)
 {
-    class_addMethod(self, sel, NullSafeMethodIMP, "v@:@");
+	if ([[self superclass] instancesRespondToSelector:sel]) return YES;
+	class_addMethod(self, sel, NUSNullSafeMethodIMP, "v@:@");
     return YES;
+}
+
+@implementation NUSNull
+
++ (void)load
+{
+	[super load];
+	class_replaceMethod(object_getClass(NSNull.class), @selector(resolveInstanceMethod:), (IMP)NUSResolveInstanceMethodOverrideIMP, "c@::");
 }
 
 @end

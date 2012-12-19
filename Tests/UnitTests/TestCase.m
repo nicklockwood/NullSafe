@@ -20,14 +20,15 @@
     {
         Method method = methods[i];
         SEL selector = method_getName(method);
-        NSString *name = NSStringFromSelector(selector);
-        if ([name hasPrefix:@"test"])
+        NSString *selectorName = NSStringFromSelector(selector);
+        if ([selectorName hasPrefix:@"test"])
         {
             //avoid arc warning by using c runtime
             objc_msgSend(self, selector);
         }
-        
-        NSLog(@"Test '%@' completed successfuly", [name substringFromIndex:4]);
+		
+		NSString *testName = [selectorName substringFromIndex:4];
+        NSLog(@"Test '%@' completed successfuly", testName);
     }
 }
 
