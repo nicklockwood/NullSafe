@@ -38,4 +38,10 @@
     NSAssert([result isEqualToString:[[NSNull null] description]], @"Description test failed");
 }
 
+- (void)testSanity
+{
+	NSString *testString = @"Hellooooo";
+	NSAssert([testString substringFromIndex:3] != nil, @"Sanity test failed");
+}
+
 @end
