@@ -33,27 +33,28 @@
 #import "NullSafe.h"
 #import <objc/runtime.h>
 
-id NullSafeMethodIMP(id, SEL, ...);
+id NUSNullSafeMethodIMP(id, SEL, ...);
 
-id NullSafeMethodIMP(id self, SEL cmd, ...)
+id NUSNullSafeMethodIMP(id self, SEL cmd, ...)
 {
     return nil;
 }
 
-@implementation NUSNull
+BOOL NUSResolveInstanceMethodOverrideIMP(id self, SEL cmd, SEL sel);
 
-+ (void)load {
-	[super load];
-	Method resolveInstanceMethod = class_getClassMethod(NSNull.class, @selector(resolveInstanceMethod:));
-	Method newResolveInstanceMethod = class_getClassMethod(self.class, @selector(resolveInstanceMethod:));
-	
-	method_exchangeImplementations(resolveInstanceMethod, newResolveInstanceMethod);
+BOOL NUSResolveInstanceMethodOverrideIMP(id self, SEL cmd, SEL sel)
+{
+	if ([[self superclass] instancesRespondToSelector:sel]) return YES;
+	class_addMethod(self, sel, NUSNullSafeMethodIMP, "v@:@");
+    return YES;
 }
 
-+ (BOOL)resolveInstanceMethod:(SEL)sel
+@implementation NUSNull
+
++ (void)load
 {
-    class_addMethod(self, sel, NullSafeMethodIMP, "v@:@");
-    return YES;
+	[super load];
+	class_replaceMethod(object_getClass(NSNull.class), @selector(resolveInstanceMethod:), (IMP)NUSResolveInstanceMethodOverrideIMP, "c@::");
 }
 
 @end
