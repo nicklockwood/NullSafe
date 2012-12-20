@@ -1,7 +1,9 @@
 Purpose
 --------------
 
-NullSafe is a simple category on NSNull that returns nil for any unrecognised messages instead of throwing an exception. This eliminates a common cause of crashes, where (for example) JSON data contains a null value instead of an array or string, and the network code in the app isn't expecting it.
+NullSafe is a simple category on NSNull that returns nil for unrecognised messages instead of throwing an exception. This eliminates a common cause of crashes, where (for example) JSON data contains a null value instead of an array or string, and the network code in the app isn't expecting it.
+
+**Note:** Unlike nil, NullSafe will currently only respond to messages supported by NSValue, NSNumber, NSString, NSDictionary, NSArray, NSData and NSData (basically anything you might find in a Plist or JSON file). Any messages not supported by those objects will throw an exception as normal.
 
 
 Supported iOS & SDK Versions

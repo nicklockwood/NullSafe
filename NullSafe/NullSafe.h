@@ -1,7 +1,7 @@
 //
 //  NullSafe.h
 //
-//  Version 1.0
+//  Version 1.1
 //
 //  Created by Nick Lockwood on 19/12/2012.
 //  Copyright 2012 Charcoal Design
@@ -33,6 +33,6 @@
 #import <Foundation/Foundation.h>
 
 
-@implementation NSNull (NullSafe)
+@interface NSNull (NullSafe)
 
 @end

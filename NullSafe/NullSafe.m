@@ -1,7 +1,7 @@
 //
 //  NullSafe.m
 //
-//  Version 1.0
+//  Version 1.1
 //
 //  Created by Nick Lockwood on 19/12/2012.
 //  Copyright 2012 Charcoal Design
@@ -30,28 +30,52 @@
 //  3. This notice may not be removed or altered from any source distribution.
 //
 
-#import "NullSafe.m"
+#import "NullSafe.h"
 #import <objc/runtime.h>
-
-
-@implementation NSNull (NullSafe_Private)
-
-id NullSafeMethodIMP(id, SEL, ...);
-
-@end
 
 
 @implementation NSNull (NullSafe)
 
-id NullSafeMethodIMP(id self, SEL cmd, ...)
+- (NSMethodSignature *)methodSignatureForSelector:(SEL)selector
 {
-    return nil;
+    NSMethodSignature *signature = [super methodSignatureForSelector:selector];
+    if (!signature)
+    {
+        if ([NSNumber instancesRespondToSelector:selector])
+        {
+            return [NSNumber instanceMethodSignatureForSelector:selector];
+        }
+        else if ([NSValue instancesRespondToSelector:selector])
+        {
+            return [NSValue instanceMethodSignatureForSelector:selector];
+        }
+        else if ([NSString instancesRespondToSelector:selector])
+        {
+            return [NSString instanceMethodSignatureForSelector:selector];
+        }
+        else if ([NSArray instancesRespondToSelector:selector])
+        {
+            return [NSArray instanceMethodSignatureForSelector:selector];
+        }
+        else if ([NSDictionary instancesRespondToSelector:selector])
+        {
+            return [NSDictionary instanceMethodSignatureForSelector:selector];
+        }
+        else if ([NSDate instancesRespondToSelector:selector])
+        {
+            return [NSDate instanceMethodSignatureForSelector:selector];
+        }
+        else if ([NSData instancesRespondToSelector:selector])
+        {
+            return [NSData instanceMethodSignatureForSelector:selector];
+        }
+    }
+    return signature;
 }
 
-+ (BOOL)resolveInstanceMethod:(SEL)sel
+- (void)forwardInvocation:(NSInvocation *)invocation
 {
-    class_addMethod(self, sel, NullSafeMethodIMP, "v@:@");
-    return YES;
+    [invocation invokeWithTarget:nil];
 }
 
 @end
