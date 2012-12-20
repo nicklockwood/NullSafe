@@ -41,33 +41,19 @@
     NSMethodSignature *signature = [super methodSignatureForSelector:selector];
     if (!signature)
     {
-        if ([NSNumber instancesRespondToSelector:selector])
+        for (Class class in @[
+            [NSNumber class],
+            [NSValue class],
+            [NSString class],
+            [NSArray class],
+            [NSDictionary class],
+            [NSDate class],
+            [NSData class]])
         {
-            return [NSNumber instanceMethodSignatureForSelector:selector];
-        }
-        else if ([NSValue instancesRespondToSelector:selector])
-        {
-            return [NSValue instanceMethodSignatureForSelector:selector];
-        }
-        else if ([NSString instancesRespondToSelector:selector])
-        {
-            return [NSString instanceMethodSignatureForSelector:selector];
-        }
-        else if ([NSArray instancesRespondToSelector:selector])
-        {
-            return [NSArray instanceMethodSignatureForSelector:selector];
-        }
-        else if ([NSDictionary instancesRespondToSelector:selector])
-        {
-            return [NSDictionary instanceMethodSignatureForSelector:selector];
-        }
-        else if ([NSDate instancesRespondToSelector:selector])
-        {
-            return [NSDate instanceMethodSignatureForSelector:selector];
-        }
-        else if ([NSData instancesRespondToSelector:selector])
-        {
-            return [NSData instanceMethodSignatureForSelector:selector];
+            if ([class instancesRespondToSelector:selector])
+            {
+                return [class instanceMethodSignatureForSelector:selector];
+            }
         }
     }
     return signature;
