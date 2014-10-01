@@ -1,12 +1,11 @@
 //
-//  JSONTests.m
+//  NullTests.m
 //
 //  Created by Nick Lockwood on 12/01/2012.
 //  Copyright (c) 2012 Charcoal Design. All rights reserved.
 //
 
-#import "NullTests.h"
-#import "NullSafe.h"
+#import <XCTest/XCTest.h>
 
 
 @implementation NSData (NullTests)
@@ -19,50 +18,47 @@
 @end
 
 
+@interface NullTests : XCTestCase
+
+@end
+
+
 @implementation NullTests
 
 - (void)testStringValue
 {
     id nullValue = [NSNull null];
     NSString *result = [nullValue stringValue];
-    NSAssert(result == nil, @"StringValue test failed");
+    XCTAssertNil(result);
 }
 
 - (void)testFloatValue
 {
     id nullValue = [NSNull null];
-    float x = floorf(123.456f);
+    __unused float x = floorf(123.456f); // makes sure compiler doesn't trick us
     float result = [nullValue floatValue];
-    NSAssert(result == 0.0f, @"FloatValue test failed (%g)", x);
-}
-
-- (void)testFloatValue2
-{
-    id nullValue = [NSNull null];
-    float x = floorf(123.456f);
-    float result = [nullValue floatValue];
-    NSAssert(result == 0.0f, @"FloatValue2 test failed (%g)", x);
+    XCTAssertEqualWithAccuracy(result, 0.0f, 0.0f);
 }
 
 - (void)testPointerValue
 {
     id nullValue = [NSNull null];
     const void *result = [nullValue bytes];
-    NSAssert(result == NULL, @"PointerValue test failed");
+    XCTAssertNil((__bridge id)result);
 }
 
 - (void)testClass
 {
     id nullValue = [NSNull null];
     NSString *result = NSStringFromClass([nullValue class]);
-    NSAssert([result isEqualToString:@"NSNull"], @"Class test failed");
+    XCTAssertEqualObjects(result, @"NSNull");
 }
 
 - (void)testDescription
 {
     id nullValue = [NSNull null];
     NSString *result = [nullValue description];
-    NSAssert([result isEqualToString:[[NSNull null] description]], @"Description test failed");
+    XCTAssertEqualObjects(result, @"<null>");
 }
 
 - (void)testRange
@@ -71,15 +67,15 @@
     NSRange compare = NSMakeRange(0, 0);
     NSMakeRange(1, 10);
     NSRange result = [nullValue range];
-    NSAssert(NSEqualRanges(result, compare), @"Range test failed");
+    XCTAssertTrue(NSEqualRanges(result, compare), @"Range test failed");
 }
 
 - (void)testCategory
 {
     id nullValue = [NSNull null];
-    double x = floorf(123.456);
+    __unused double x = floor(123.456);
     double result = [nullValue NullTestMethod];
-    NSAssert(result == 0.0, @"Category test failed (%g)", x);
+    XCTAssertEqualWithAccuracy(result, 0.0, 0.0);
 }
 
 @end

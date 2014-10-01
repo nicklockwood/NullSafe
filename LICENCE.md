@@ -1,6 +1,6 @@
 NullSafe
 
-Version 1.2, December 22nd, 2012
+Version 1.2.1, September 30th, 2014
 
 Copyright (C) 2012 Charcoal Design
 

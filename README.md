@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/nicklockwood/NullSafe.svg)](https://travis-ci.org/nicklockwood/NullSafe)
+
+
 Purpose
 --------------
 
@@ -7,7 +10,7 @@ NullSafe is a simple category on NSNull that returns nil for unrecognised messag
 Supported iOS & SDK Versions
 -----------------------------
 
-* Supported build target - iOS 6.0 / Mac OS 10.8 (Xcode 4.5.2, Apple LLVM compiler 4.1)
+* Supported build target - iOS 8.0 / Mac OS 10.9 (Xcode 6.0, Apple LLVM compiler 6.0)
 * Earliest supported deployment target - iOS 5.0 / Mac OS 10.7
 * Earliest compatible deployment target - iOS 4.3 / Mac OS 10.6
 
@@ -23,11 +26,11 @@ NullSafe works in both ARC and non ARC targets without modification.
 Installation & Usage
 --------------------
 
-To use NullSafe, just drag the NullSafe.h and .m files into your project. NullSafe will be automatically loaded at runtime, you don't need to include the header file in your code.
+To use NullSafe, just drag the NullSafe.m file into your project. NullSafe will be automatically loaded at runtime, you don't need to include any header files in your code.
 
 
 Selectively Disabling NullSafe
------------------------------
+------------------------------
 
 NullSafe is enabled automatically as soon as the class files are added to a project target, however if you wish to disable NullSafe for a particular scheme (e.g. when running in debug mode) then you can disable it by adding the following pre-compiler macro to your build settings:
 
@@ -38,3 +41,27 @@ Or if you prefer, you could add something like this to your prefix.pch file:
     #ifdef DEBUG
     #define NULLSAFE_ENABLED 0
     #endif
+
+
+Release Notes
+--------------
+
+Version 1.2.1
+
+- Fixed crash in iOS 8
+- Removed NullSafe.h file (redundant)
+- Now complies with -Weverything warning level
+
+Version 1.2
+
+- Will now handle any known method, not just a subset
+- Added NULLSAFE_ENABLED macro to easily enable/disable per scheme
+- Added implementation cache for better performance
+
+Version 1.1
+
+- Made it work by design rather than coincidence ;-)
+
+Version 1.0
+
+- Initial release

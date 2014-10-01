@@ -1,7 +1,7 @@
 //
 //  NullSafe.m
 //
-//  Version 1.2
+//  Version 1.2.1
 //
 //  Created by Nick Lockwood on 19/12/2012.
 //  Copyright 2012 Charcoal Design
@@ -30,8 +30,16 @@
 //  3. This notice may not be removed or altered from any source distribution.
 //
 
-#import "NullSafe.h"
 #import <objc/runtime.h>
+#import <Foundation/Foundation.h>
+
+
+#ifndef NULLSAFE_ENABLED
+#define NULLSAFE_ENABLED 1
+#endif
+
+
+#pragma GCC diagnostic ignored "-Wgnu-conditional-omitted-operand"
 
 
 @implementation NSNull (NullSafe)
@@ -56,7 +64,7 @@
                 
                 //get class list
                 int numClasses = objc_getClassList(NULL, 0);
-                Class *classes = (Class *)malloc(sizeof(Class) * numClasses);
+                Class *classes = (Class *)malloc(sizeof(Class) * (unsigned long)numClasses);
                 numClasses = objc_getClassList(classes, numClasses);
                 
                 //add to list for checking
@@ -64,55 +72,47 @@
                 for (int i = 0; i < numClasses; i++)
                 {
                     //determine if class has a superclass
-                    BOOL isNSObject = NO;
-                    Class class = classes[i];
-                    Class superClass = class_getSuperclass(class);
-                    while (superClass)
+                    Class someClass = classes[i];
+                    Class superclass = class_getSuperclass(someClass);
+                    while (superclass)
                     {
-                        if (superClass == [NSObject class])
+                        if (superclass == [NSObject class])
                         {
-                            isNSObject = YES;
+                            [classList addObject:someClass];
                             break;
                         }
-                        Class next = class_getSuperclass(superClass);
-                        if (next) [excluded addObject:superClass];
-                        superClass = next;
-                    }
-                    
-                    //only include NSObject subclasses
-                    if (isNSObject)
-                    {
-                        [classList addObject:class];
+                        [excluded addObject:NSStringFromClass(superclass)];
+                        superclass = class_getSuperclass(superclass);
                     }
                 }
-                
+
                 //remove all classes that have subclasses
-                for (Class class in excluded)
+                for (Class someClass in excluded)
                 {
-                    [classList removeObject:class];
+                    [classList removeObject:someClass];
                 }
-                
+
                 //free class list
                 free(classes);
             }
             
             //check implementation cache first
             NSString *selectorString = NSStringFromSelector(selector);
-            signature = [signatureCache objectForKey:selectorString];
+            signature = signatureCache[selectorString];
             if (!signature)
             {
                 //find implementation
-                for (Class class in classList)
+                for (Class someClass in classList)
                 {
-                    if ([class instancesRespondToSelector:selector])
+                    if ([someClass instancesRespondToSelector:selector])
                     {
-                        signature = [class instanceMethodSignatureForSelector:selector];
+                        signature = [someClass instanceMethodSignatureForSelector:selector];
                         break;
                     }
                 }
                 
                 //cache for next time
-                [signatureCache setObject:signature ?: [NSNull null] forKey:selectorString];
+                signatureCache[selectorString] = signature ?: [NSNull null];
             }
             else if ([signature isKindOfClass:[NSNull class]])
             {
