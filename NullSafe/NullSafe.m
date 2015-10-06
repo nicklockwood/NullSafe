@@ -125,7 +125,7 @@
 
 - (void)forwardInvocation:(NSInvocation *)invocation
 {
-    [invocation invokeWithTarget:nil];
+    [invocation invoke];
 }
 
 #endif
