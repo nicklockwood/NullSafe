@@ -125,7 +125,6 @@
 
 - (void)forwardInvocation:(NSInvocation *)invocation
 {
-    [invocation invoke];
 }
 
 #endif
