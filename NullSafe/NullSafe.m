@@ -123,9 +123,8 @@
     }
 }
 
-- (void)forwardInvocation:(NSInvocation *)invocation
+- (void)forwardInvocation:(NSInvocation * __unused)invocation
 {
-    [invocation invokeWithTarget:nil];
 }
 
 #endif
