@@ -123,7 +123,7 @@
     }
 }
 
-- (void)forwardInvocation:(NSInvocation *)invocation
+- (void)forwardInvocation:(NSInvocation * __unused)invocation
 {
 }
 
