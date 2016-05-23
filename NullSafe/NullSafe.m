@@ -1,7 +1,7 @@
 //
 //  NullSafe.m
 //
-//  Version 1.2.1
+//  Version 1.2.2
 //
 //  Created by Nick Lockwood on 19/12/2012.
 //  Copyright 2012 Charcoal Design
@@ -125,7 +125,8 @@
 
 - (void)forwardInvocation:(NSInvocation *)invocation
 {
-    [invocation invokeWithTarget:nil];
+    invocation.target = nil;
+    [invocation invoke];
 }
 
 #endif

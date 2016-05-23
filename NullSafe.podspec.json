@@ -1,6 +1,6 @@
 {
   "name": "NullSafe",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "summary": "NullSafe is a simple category on NSNull that returns nil for any unrecognised messages instead of throwing an exception.",
   "homepage": "https://github.com/nicklockwood/NullSafe",
   "license": {
@@ -12,7 +12,7 @@
   },
   "source": {
     "git": "https://github.com/nicklockwood/NullSafe.git",
-    "tag": "1.2.1"
+    "tag": "1.2.2"
   },
   "platforms": {
     "ios": "4.3",

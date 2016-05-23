@@ -120,7 +120,7 @@
 		01D28C641907BFC80021C719 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = "Charcoal Design";
 				TargetAttributes = {
 					01D28C861907BFC80021C719 = {
@@ -198,6 +198,7 @@
 				CLANG_WARN__EXIT_TIME_DESTRUCTORS = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = fast;
@@ -242,6 +243,8 @@
 					"-Wno-objc-missing-property-synthesis",
 					"-Wno-sign-compare",
 					"-Wno-documentation-unknown-command",
+					"-Wno-reserved-id-macro",
+					"-Wno-partial-availability",
 				);
 			};
 			name = Debug;
@@ -315,6 +318,8 @@
 					"-Wno-objc-missing-property-synthesis",
 					"-Wno-sign-compare",
 					"-Wno-documentation-unknown-command",
+					"-Wno-reserved-id-macro",
+					"-Wno-partial-availability",
 				);
 			};
 			name = Release;
@@ -333,6 +338,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "UnitTests/UnitTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.charcoaldesign.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = UnitTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -349,6 +355,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				INFOPLIST_FILE = "UnitTests/UnitTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.charcoaldesign.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = UnitTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;

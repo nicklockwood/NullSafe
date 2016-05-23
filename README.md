@@ -10,8 +10,8 @@ NullSafe is a simple category on NSNull that returns nil for unrecognised messag
 Supported iOS & SDK Versions
 -----------------------------
 
-* Supported build target - iOS 8.0 / Mac OS 10.9 (Xcode 6.0, Apple LLVM compiler 6.0)
-* Earliest supported deployment target - iOS 5.0 / Mac OS 10.7
+* Supported build target - iOS 9.3 / Mac OS 10.11 (Xcode 7.3, Apple LLVM compiler 7.1)
+* Earliest supported deployment target - iOS 7.0 / Mac OS 10.9
 * Earliest compatible deployment target - iOS 4.3 / Mac OS 10.6
 
 NOTE: 'Supported' means that the library has been tested with this version. 'Compatible' means that the library should work on this iOS version (i.e. it doesn't rely on any unavailable SDK features) but is no longer being tested for compatibility and may require tweaking or bug fixes to run correctly.
@@ -45,6 +45,10 @@ Or if you prefer, you could add something like this to your prefix.pch file:
 
 Release Notes
 --------------
+ 
+Version 1.2.2
+ 
+- Fixed nullability warning
 
 Version 1.2.1
 

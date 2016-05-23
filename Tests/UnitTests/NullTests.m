@@ -40,6 +40,13 @@
     XCTAssertEqualWithAccuracy(result, 0.0f, 0.0f);
 }
 
+- (void)testIntValue
+{
+    id nullValue = [NSNull null];
+    int result = [nullValue intValue];
+    XCTAssertEqual(result, 0);
+}
+
 - (void)testPointerValue
 {
     id nullValue = [NSNull null];
