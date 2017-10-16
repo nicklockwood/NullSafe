@@ -5,7 +5,7 @@ before_script:
 - source ~/.bash_profile  
 - ruby -v    
 - rvm reload   
-- rvm install ruby-2.4.2
+- rvm reinstall ruby-2.4.2
 - ruby -v 
 - brew update
 - brew upgrade xctool
