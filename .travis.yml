@@ -7,7 +7,7 @@ before_script:
 #列出已知的ruby版本    
 - rvm list known    
 #安装 ruby-2.3.0    
-- rvm reinstall ruby-2.3.0 
+- rvm reinstall ruby-2.4.2
 - brew update
 - brew upgrade xctool
 script: xctool test -project Tests/UnitTests.xcodeproj -scheme UnitTests -sdk iphonesimulator
