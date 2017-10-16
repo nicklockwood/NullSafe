@@ -11,5 +11,3 @@ before_script:
 - brew update
 - brew upgrade xctool
 script: xctool test -project Tests/UnitTests.xcodeproj -scheme UnitTests -sdk iphonesimulator
-group: stable
-dist: osx
