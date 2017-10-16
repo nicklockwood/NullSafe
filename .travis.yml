@@ -1,5 +1,8 @@
 language: objective-c
 before_script:
+- curl -sSL https://get.rvm.io | bash  
+- source ~/.bashrc    
+- source ~/.bash_profile  
 - brew update
 - brew upgrade xctool
 script: xctool test -project Tests/UnitTests.xcodeproj -scheme UnitTests -sdk iphonesimulator
