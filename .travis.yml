@@ -1,5 +1,5 @@
 language: objective-c
-before_script:
+install:
 - curl -sSL https://get.rvm.io | bash -s stable 
 - source ~/.bashrc    
 - source ~/.bash_profile  
@@ -7,6 +7,7 @@ before_script:
 - rvm reload   
 - rvm reinstall ruby-2.4.2
 - ruby -v 
+before_script:
 - brew update
 - brew upgrade xctool
 script: xctool test -project Tests/UnitTests.xcodeproj -scheme UnitTests -sdk iphonesimulator
