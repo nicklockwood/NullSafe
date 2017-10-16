@@ -1,11 +1,11 @@
 language: objective-c
 before_script:
-- curl -sSL https://get.rvm.io | bash  
+- curl -sSL https://get.rvm.io | bash -s stable 
 - source ~/.bashrc    
 - source ~/.bash_profile  
-- ruby -v       
+- ruby -v    
+- rvm reload   
 - rvm install ruby-2.4.2
-- rvm reload
 - ruby -v 
 - brew update
 - brew upgrade xctool
