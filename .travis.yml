@@ -5,7 +5,7 @@ install:
 - source ~/.bash_profile  
 - ruby -v    
 - rvm reload   
-- rvm reinstall ruby-2.4.2
+- rvm reinstall ruby-2.3.0  
 - ruby -v 
 before_script:
 - brew update
