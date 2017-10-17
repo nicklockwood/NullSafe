@@ -5,5 +5,3 @@ osx_image: xcode8.3
 script: 
     set -o pipefail
     xcodebuild clean test -project Tests/UnitTests.xcodeproj -scheme UnitTests -destination 'platform=iOS Simulator,name=iPhone 7,OS=latest'
-after_success:
-- bash <(curl -s https://codecov.io/bash)
