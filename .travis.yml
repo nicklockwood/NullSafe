@@ -1,6 +1,6 @@
 language: objective-c
 osx_image: xcode8.3
-before_install:
+install:
 - curl -sSL https://get.rvm.io | bash -s stable 
 - source ~/.bashrc    
 - source ~/.bash_profile
