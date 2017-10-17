@@ -1,5 +1,15 @@
 language: objective-c
 osx_image: xcode8.3
+before_install:
+  - rvm install 2.3.0
+# install:
+# - curl -sSL https://get.rvm.io | bash -s stable 
+# - source ~/.bashrc    
+# - source ~/.bash_profile  
+# - ruby -v    
+# - rvm reload   
+# - rvm reinstall ruby-2.3.0
+# - ruby -v 
 # xcode_project: TravisCI_Demo_OC.xcodeproj # path to your xcodeproj folder
 # xcode_scheme: TravisCI_Demo_OCTests
 script: 
