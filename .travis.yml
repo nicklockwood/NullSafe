@@ -1,13 +1,9 @@
 language: objective-c
-install:
-- curl -sSL https://get.rvm.io | bash -s stable 
-- source ~/.bashrc    
-- source ~/.bash_profile  
-- ruby -v    
-- rvm reload   
-- rvm reinstall ruby-2.3.0  
-- ruby -v 
-before_script:
-- brew update
-- brew upgrade xctool
-script: xctool test -project Tests/UnitTests.xcodeproj -scheme UnitTests -sdk iphonesimulator
+osx_image: xcode8.3
+# xcode_project: TravisCI_Demo_OC.xcodeproj # path to your xcodeproj folder
+# xcode_scheme: TravisCI_Demo_OCTests
+script: 
+    set -o pipefail
+    xcodebuild clean test -project Tests/UnitTests.xcodeproj -scheme UnitTests -destination 'platform=iOS Simulator,name=iPhone 7,OS=latest'
+after_success:
+- bash <(curl -s https://codecov.io/bash)
