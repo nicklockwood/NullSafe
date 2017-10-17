@@ -81,7 +81,9 @@
                             [classList addObject:someClass];
                             break;
                         }
-                        [excluded addObject:NSStringFromClass(superclass)];
+                        //[excluded addObject:NSStringFromClass(superclass)];
+                        //excluded add NSString and classList contain Class, it does not work in 'remove all classes that have subclasses'
+                        [excluded addObject:superclass];
                         superclass = class_getSuperclass(superclass);
                     }
                 }
