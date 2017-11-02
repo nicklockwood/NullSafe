@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "12EA5733D790C9FD41E43DC71E6D37668342F1E8",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "2591C0A67CFD16CB104119160C9271CFF28A27E3" : 0,
+    "12EA5733D790C9FD41E43DC71E6D37668342F1E8" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "8B490075-1608-4EF2-9D02-1805147E5EF1",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "2591C0A67CFD16CB104119160C9271CFF28A27E3" : "FastCoding",
+    "12EA5733D790C9FD41E43DC71E6D37668342F1E8" : "NullSafe"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "UnitTests",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Tests\/UnitTests.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/nicklockwood\/NullSafe.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "12EA5733D790C9FD41E43DC71E6D37668342F1E8"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/nicklockwood\/FastCoding.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "2591C0A67CFD16CB104119160C9271CFF28A27E3"
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 //
 //  NullSafe.m
 //
-//  Version 1.2.2
+//  Version 1.2.3
 //
 //  Created by Nick Lockwood on 19/12/2012.
 //  Copyright 2012 Charcoal Design
@@ -46,81 +46,93 @@
 
 #if NULLSAFE_ENABLED
 
+static NSMutableSet<Class> *classList = nil;
+static NSMutableDictionary<NSString *, id> *signatureCache = nil;
+static void cacheSignatures()
+{
+    classList = [[NSMutableSet alloc] init];
+    signatureCache = [[NSMutableDictionary alloc] init];
+
+    //get class list
+    int numClasses = objc_getClassList(NULL, 0);
+    Class *classes = (Class *)malloc(sizeof(Class) * (unsigned long)numClasses);
+    numClasses = objc_getClassList(classes, numClasses);
+
+    //add to list for checking
+    for (int i = 0; i < numClasses; i++)
+    {
+        //determine if class has a superclass
+        Class someClass = classes[i];
+        Class superclass = class_getSuperclass(someClass);
+        while (superclass)
+        {
+            if (superclass == [NSObject class])
+            {
+                [classList addObject:someClass];
+                [classList removeObject:[someClass superclass]];
+                break;
+            }
+            superclass = class_getSuperclass(superclass);
+        }
+    }
+
+    //free class list
+    free(classes);
+}
+
 - (NSMethodSignature *)methodSignatureForSelector:(SEL)selector
 {
-    @synchronized([self class])
+    //look up method signature
+    NSMethodSignature *signature = [super methodSignatureForSelector:selector];
+    if (!signature)
     {
-        //look up method signature
-        NSMethodSignature *signature = [super methodSignatureForSelector:selector];
+        //check implementation cache first
+        NSString *selectorString = NSStringFromSelector(selector);
+        signature = signatureCache[selectorString];
         if (!signature)
         {
-            //not supported by NSNull, search other classes
-            static NSMutableSet *classList = nil;
-            static NSMutableDictionary *signatureCache = nil;
-            if (signatureCache == nil)
+            @synchronized([NSNull class])
             {
-                classList = [[NSMutableSet alloc] init];
-                signatureCache = [[NSMutableDictionary alloc] init];
-                
-                //get class list
-                int numClasses = objc_getClassList(NULL, 0);
-                Class *classes = (Class *)malloc(sizeof(Class) * (unsigned long)numClasses);
-                numClasses = objc_getClassList(classes, numClasses);
-                
-                //add to list for checking
-                NSMutableSet *excluded = [NSMutableSet set];
-                for (int i = 0; i < numClasses; i++)
+                //check again, in case it was resolved while we were waitimg
+                signature = signatureCache[selectorString];
+                if (!signature)
                 {
-                    //determine if class has a superclass
-                    Class someClass = classes[i];
-                    Class superclass = class_getSuperclass(someClass);
-                    while (superclass)
+                    //not supported by NSNull, search other classes
+                    if (signatureCache == nil)
                     {
-                        if (superclass == [NSObject class])
+                        if ([NSThread isMainThread])
                         {
-                            [classList addObject:someClass];
+                            cacheSignatures();
+                        }
+                        else
+                        {
+                            dispatch_sync(dispatch_get_main_queue(), ^{
+                                cacheSignatures();
+                            });
+                        }
+                    }
+
+                    //find implementation
+                    for (Class someClass in classList)
+                    {
+                        if ([someClass instancesRespondToSelector:selector])
+                        {
+                            signature = [someClass instanceMethodSignatureForSelector:selector];
                             break;
                         }
-                        [excluded addObject:NSStringFromClass(superclass)];
-                        superclass = class_getSuperclass(superclass);
                     }
-                }
 
-                //remove all classes that have subclasses
-                for (Class someClass in excluded)
-                {
-                    [classList removeObject:someClass];
+                    //cache for next time
+                    signatureCache[selectorString] = signature ?: [NSNull null];
                 }
-
-                //free class list
-                free(classes);
-            }
-            
-            //check implementation cache first
-            NSString *selectorString = NSStringFromSelector(selector);
-            signature = signatureCache[selectorString];
-            if (!signature)
-            {
-                //find implementation
-                for (Class someClass in classList)
+                else if ([signature isKindOfClass:[NSNull class]])
                 {
-                    if ([someClass instancesRespondToSelector:selector])
-                    {
-                        signature = [someClass instanceMethodSignatureForSelector:selector];
-                        break;
-                    }
+                    signature = nil;
                 }
-                
-                //cache for next time
-                signatureCache[selectorString] = signature ?: [NSNull null];
-            }
-            else if ([signature isKindOfClass:[NSNull class]])
-            {
-                signature = nil;
             }
         }
-        return signature;
     }
+    return signature;
 }
 
 - (void)forwardInvocation:(NSInvocation *)invocation
