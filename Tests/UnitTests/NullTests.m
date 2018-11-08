@@ -7,6 +7,7 @@
 
 #import <XCTest/XCTest.h>
 
+#pragma clang diagnostic ignored "-Wobjc-messaging-id"
 
 @implementation NSData (NullTests)
 
@@ -66,15 +67,6 @@
     id nullValue = [NSNull null];
     NSString *result = [nullValue description];
     XCTAssertEqualObjects(result, @"<null>");
-}
-
-- (void)testRange
-{
-    id nullValue = [NSNull null];
-    NSRange compare = NSMakeRange(0, 0);
-    NSMakeRange(1, 10);
-    NSRange result = [nullValue range];
-    XCTAssertTrue(NSEqualRanges(result, compare), @"Range test failed");
 }
 
 - (void)testCategory

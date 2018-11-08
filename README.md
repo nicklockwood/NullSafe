@@ -10,7 +10,7 @@ NullSafe is a simple category on NSNull that returns nil for unrecognised messag
 Supported iOS & SDK Versions
 -----------------------------
 
-* Supported build target - iOS 11.0 / Mac OS 10.12 (Xcode 9.0)
+* Supported build target - iOS 12.0 / Mac OS 10.14 (Xcode 10.1)
 * Earliest supported deployment target - iOS 9.0 / Mac OS 10.10
 * Earliest compatible deployment target - iOS 4.3 / Mac OS 10.6
 
@@ -45,6 +45,10 @@ Or if you prefer, you could add something like this to your prefix.pch file:
 
 Release Notes
 --------------
+
+Version 2.0
+
+- Radically simplified NullSafe to only handle JSON and Plist values
 
 Version 1.2.3
 
