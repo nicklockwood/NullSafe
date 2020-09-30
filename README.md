@@ -1,14 +1,13 @@
 [![Build Status](https://travis-ci.org/nicklockwood/NullSafe.svg)](https://travis-ci.org/nicklockwood/NullSafe)
 
 
-Purpose
---------------
+                                                                         Purpose
+                                                                         --------------
 
 NullSafe is a simple category on NSNull that returns nil for unrecognised messages instead of throwing an exception. This eliminates a common cause of crashes, where (for example) JSON data contains a null value instead of an array or string, and the network code in the app isn't expecting it.
 
-
-Supported iOS & SDK Versions
------------------------------
+									Supported iOS & SDK Versions		
+                                                                                -----------------------------
 
 * Supported build target - iOS 12.0 / Mac OS 10.14 (Xcode 10.1)
 * Earliest supported deployment target - iOS 9.0 / Mac OS 10.10
@@ -17,20 +16,20 @@ Supported iOS & SDK Versions
 NOTE: 'Supported' means that the library has been tested with this version. 'Compatible' means that the library should work on this iOS version (i.e. it doesn't rely on any unavailable SDK features) but is no longer being tested for compatibility and may require tweaking or bug fixes to run correctly.
 
 
-ARC Compatibility
-------------------
+                                                                      ARC Compatibility
+                                                                         ------------------
 
 NullSafe works in both ARC and non ARC targets without modification.
 
 
-Installation & Usage
---------------------
+                                                     Installation & Usage
+                                                          --------------------
 
 To use NullSafe, just drag the NullSafe.m file into your project. NullSafe will be automatically loaded at runtime, you don't need to include any header files in your code.
 
 
-Selectively Disabling NullSafe
-------------------------------
+                                            Selectively Disabling NullSafe
+                                                        ------------------------------
 
 NullSafe is enabled automatically as soon as the class files are added to a project target, however if you wish to disable NullSafe for a particular scheme (e.g. when running in debug mode) then you can disable it by adding the following pre-compiler macro to your build settings:
 
