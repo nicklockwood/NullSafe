@@ -1,4 +1,5 @@
-NullSafe
+Niza
+Safe
 
 Copyright (C) 2012 Charcoal Design
 
